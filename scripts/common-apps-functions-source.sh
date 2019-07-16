@@ -207,11 +207,16 @@ function do_openocd()
       
         # Parallel builds fail.
         make bindir="bin" pkgdatadir=""
-        if [ "${WITH_STRIP}" == "y" ]
+        if [ "${TARGET_PLATFORM}" == "src" ]
         then
-          make install-strip
+          make dist
         else
-          make install  
+          if [ "${WITH_STRIP}" == "y" ]
+          then
+            make install-strip
+          else
+            make install  
+          fi
         fi
 
         if [ "${TARGET_PLATFORM}" == "linux" ]
